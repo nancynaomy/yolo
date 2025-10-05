@@ -1,0 +1,9 @@
+# version: "3.8"
+
+services:
+
+  naomi-yolo-client:
+    image: naomano/naomi-yolo-client:v1.0.0
+    build: ./client
+    ports:
+      - "3000:3000"

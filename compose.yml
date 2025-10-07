@@ -7,3 +7,7 @@ services:
     build: ./client
     ports:
       - "3000:3000"
+
+networks:
+  app-network:
+    driver: bridge

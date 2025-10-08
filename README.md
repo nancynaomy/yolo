@@ -10,7 +10,7 @@ Install Docker Engine by following the instructions here:
 
 
 
-## Building Each Container
+## Building Each Container(microservices)
 Before you start, ensure you are logged in to Docker Hub.
 
 ### 1. Client Dockerfile
@@ -26,7 +26,7 @@ The initial image size may be large, so optimization is recommended. After testi
 With further optimization, the image size was reduced to 60.9 MB:
 ![Final Optimized Image](image-3.png)
 
-### 2. Backend Docker
+### 2. Backend Dockerfile
 
 Similarly, to build the backend image, use the following command:
 ```bash
@@ -36,13 +36,13 @@ The image is created successfully:
 ![Backend Build Output](image-4.png)
 
 
-## Docker Compose
+## Docker Compose file
 
 Create a `docker-compose.yaml` file in the root folder:
 
 ```
-yolo/
-|__ compose.yaml
+yolo
+   |__ compose.yaml
 ```
 
 1. Define the client container as a service:

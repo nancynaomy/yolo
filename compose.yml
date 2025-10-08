@@ -3,7 +3,7 @@
 services:
 
   naomi-yolo-client:
-    image: naomano/naomi-yolo-client:v1.0.0
+    image: namanoo/naomi-yolo-client:v1.0.0
     build: ./client
     container_name: naomi-yolo-client
     stdin_open: true
@@ -15,7 +15,7 @@ services:
       - "3000:80"
 
   naomi-yolo-backend:
-    image: naomano/naomi-yolo-backend:v1.0.0
+    image: namanoo/naomi-yolo-backend:v1.0.0
     build: ./backend
     container_name: naomi-yolo-backend
     stdin_open: true
@@ -30,7 +30,7 @@ services:
       - app-network
       - db-network
     ports:
-      - "8000:8000"
+      - "500:500"
     
   
   naomi-yolo-mongodb:

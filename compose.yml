@@ -5,9 +5,18 @@ services:
   naomi-yolo-client:
     image: naomano/naomi-yolo-client:v1.0.0
     build: ./client
+    container_name: naomi-yolo-client
+    stdin_open: true
+    tty: true
+    restart: always
+    networks:
+      - app-network
     ports:
       - "3000:3000"
+    
 
 networks:
   app-network:
+    driver: bridge
+  db-network:
     driver: bridge

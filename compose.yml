@@ -12,7 +12,7 @@ services:
     networks:
       - app-network
     ports:
-      - "3000:3000"
+      - "3000:80"
 
   naomi-yolo-backend:
     image: naomano/naomi-yolo-backend:v1.0.0
@@ -21,25 +21,38 @@ services:
     stdin_open: true
     tty: true
     restart: always
+    depends_on:
+      - naomi-yolo-mongodb
+    
+    env_file:
+      - .env
     networks:
       - app-network
       - db-network
     ports:
       - "8000:8000"
+    
   
   naomi-yolo-mongodb:
     image: mongo:6.0.5
     container_name: naomi-yolo-mongodb
     restart: always
     environment:
-      MONGO_SERNAME: root
-      MONGO_PASSWORD: example
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
     ports:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
+
+    env_file:
+      - .env
     networks:
       - db-network
+    
+    
+
 
 
 networks:   

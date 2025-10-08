@@ -57,8 +57,24 @@ yolo
 2. Define the backend container similarly and attach it to the same network.
 3. Define a database container and connect it to the backend container using a separate network.
 
-Test by building the compose file
+## Compose File Test and Build
 
-Below Images are created... both front and backend 
+The frontend and backend Docker images have been successfully created:
 
 ![alt text](image-5.png)
+
+Next, we used Docker Compose to pull the database and build the services:
+
+```bash
+ docker compose up --build
+```
+
+![alt text](image-6.png)
+
+a succesfull build 
+
+![alt text](image-7.png)
+
+The website is now accessible at `0.0.0.0:300`:
+
+![alt text](image-8.png)

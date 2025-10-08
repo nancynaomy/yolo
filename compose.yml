@@ -23,12 +23,31 @@ services:
     restart: always
     networks:
       - app-network
+      - db-network
     ports:
       - "8000:8000"
+  
+  naomi-yolo-mongodb:
+    image: mongo:6.0.5
+    container_name: naomi-yolo-mongodb
+    restart: always
+    environment:
+      MONGO_SERNAME: root
+      MONGO_PASSWORD: example
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - db-network
 
-networks:
+
+networks:   
   app-network:
     driver: bridge
   db-network:
     driver: bridge
 
+volumes:
+  mongo-data:
+    driver: local

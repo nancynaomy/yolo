@@ -75,6 +75,8 @@ a succesfull build
 
 ![alt text](image-7.png)
 
+![alt text](image-9.png)
+
 The website is now accessible at `0.0.0.0:300`:
 
 ![alt text](image-8.png)

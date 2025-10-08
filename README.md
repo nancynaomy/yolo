@@ -56,3 +56,9 @@ yolo
 
 2. Define the backend container similarly and attach it to the same network.
 3. Define a database container and connect it to the backend container using a separate network.
+
+Test by building the compose file
+
+Below Images are created... both front and backend 
+
+![alt text](image-5.png)

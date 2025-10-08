@@ -1,52 +1,58 @@
+
 # Overview
-This project involved the containerization and deployment of a full-stack yolo application using Docker.
+This project demonstrates the containerization and deployment of a full-stack YOLO application using Docker.
+
 
 
 # Requirements
-Install the docker engine here:
-- [Docker](https://docs.docker.com/engine/install/) 
+Install Docker Engine by following the instructions here:
+- [Docker Installation Guide](https://docs.docker.com/engine/install/)
 
 
-## How to Build each Container
-Before you start Ensure you're logged in to docker hub
+
+## Building Each Container
+Before you start, ensure you are logged in to Docker Hub.
+
 ### 1. Client Dockerfile
-Create clients Dockerfile and test the build using this command
+Create the client Dockerfile and test the build with the following command:
 ```bash
 docker build -t nancynaomy/naomi-yolo-client:v1.0.0 client/
 ```
-![alt text](image-1.png)
-The image size is quite big and we need to reduce the size.
-Tested several images and working with `alpine:3.16.7`  gives us a small image
-![alt text](image-2.png)
+![Client Build Output](image-1.png)
 
-Further testing reduced my image to 60.9mb
-![alt text](image-3.png)
+The initial image size may be large, so optimization is recommended. After testing several base images, using `alpine:3.16.7` resulted in a significantly smaller image:
+![Optimized Image Output](image-2.png)
 
-### 2. Backend Docker 
+With further optimization, the image size was reduced to 60.9 MB:
+![Final Optimized Image](image-3.png)
 
-Like client Dockerfile, use below command to build the image 
+### 2. Backend Docker
+
+Similarly, to build the backend image, use the following command:
 ```bash
 docker build -t nancynaomy/naomi-yolo-backend:v1.0.0 backend/
 ```
-The image is created Succesfully.
-![alt text](image-4.png)
+The image is created successfully:
+![Backend Build Output](image-4.png)
 
-## Docker-compose
 
-create docker compose file on the root folder.
-```bash yolo
-          |__ compose.yaml 
+## Docker Compose
+
+Create a `docker-compose.yaml` file in the root folder:
+
 ```
-1. Create client container(as a service inside container)
- - Bind Port 
+yolo/
+|__ compose.yaml
+```
 
-        ```bash 
-                ports:
-              - "3000:3000"
-        ```
- - specify building dir
- - Attach Network
+1. Define the client container as a service:
+   - Bind the port:
+     ```yaml
+     ports:
+       - "3000:3000"
+     ```
+   - Specify the build directory
+   - Attach to a network
 
- 2. Create backend container similar to client and attach to the same network
- 3. Create a database container and connect it to backend container using a different network
- 
+2. Define the backend container similarly and attach it to the same network.
+3. Define a database container and connect it to the backend container using a separate network.

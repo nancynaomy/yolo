@@ -13,10 +13,22 @@ services:
       - app-network
     ports:
       - "3000:3000"
-    
+
+  naomi-yolo-backend:
+    image: naomano/naomi-yolo-backend:v1.0.0
+    build: ./backend
+    container_name: naomi-yolo-backend
+    stdin_open: true
+    tty: true
+    restart: always
+    networks:
+      - app-network
+    ports:
+      - "8000:8000"
 
 networks:
   app-network:
     driver: bridge
   db-network:
     driver: bridge
+

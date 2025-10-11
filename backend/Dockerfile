@@ -12,6 +12,8 @@ RUN npm install
 
 COPY . .
 
+# installing mogoose  lower version
+RUN npm install mongoose@5.13.15
 # Adding  multi-stage build
 FROM alpine:3.16.7
 
@@ -22,7 +24,7 @@ RUN apk update && apk add --update nodejs
 COPY --from=build /usr/src/app /app
 
 # port app runs on
-EXPOSE 500
+EXPOSE 5000
 
 # run app
 CMD ["node", "server"]

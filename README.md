@@ -82,3 +82,10 @@ The website is now accessible at `0.0.0.0:300`:
 ![alt text](image-10.png)
 
 Image is persistent,,,, even if you restart the container.
+
+Dockerhub images upload 
+![alt text](image-11.png)
+
+My final images
+
+![alt text](image-12.png)

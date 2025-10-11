@@ -22,7 +22,8 @@ services:
     tty: true
     restart: always
     depends_on:
-      - naomi-yolo-mongodb
+      naomi-yolo-mongodb:
+        condition: service_healthy
     
     env_file:
       - .env
@@ -30,7 +31,7 @@ services:
       - app-network
       - db-network
     ports:
-      - "500:500"
+      - "5000:5000"
     
   
   naomi-yolo-mongodb:
@@ -43,6 +44,13 @@ services:
       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
     ports:
       - "27017:27017"
+
+    healthcheck:
+      test: ["CMD", "bash", "-c", "echo 'db.runCommand({ ping: 1 }).ok' | mongo --quiet localhost:27017/test"]
+      interval: 20s
+      timeout: 10s
+      retries: 10
+      start_period: 90s
     volumes:
       - mongo-data:/data/db
 

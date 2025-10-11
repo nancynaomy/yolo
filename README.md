@@ -79,4 +79,6 @@ a succesfull build
 
 The website is now accessible at `0.0.0.0:300`:
 
-![alt text](image-8.png)
+![alt text](image-10.png)
+
+Image is persistent,,,, even if you restart the container.

@@ -16,6 +16,15 @@ Here’s an overrview of what each part of the repo does:
 
 5. `.env` – Stores environment variables. There’s a sample provided in the repo. Rename it and update variables
 
+### Images used in this project
+Frontend - alpine in staging and serving with nginx
+
+Backend - both alipine base image in building and running stage.
+
+MongoDB - used mongo:3.0 for a smaller image.
+
+all images combined is less than 400mbs
+
 ### How the Docker setup works
 
 The `client Dockerfile` uses a multi-stage build:

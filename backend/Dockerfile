@@ -19,7 +19,8 @@ FROM alpine:3.16.7
 
 WORKDIR /app
 
-RUN apk update && apk add --update nodejs
+RUN apk update && apk add --no-cache nodejs bash
+
 
 COPY --from=build /usr/src/app /app
 

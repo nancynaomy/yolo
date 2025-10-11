@@ -34,7 +34,7 @@ services:
     
   
   naomi-yolo-mongodb:
-    image: mongo:6.0.5
+    image: mongo:3.0
     container_name: naomi-yolo-mongodb
     restart: always
     environment:

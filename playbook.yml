@@ -9,7 +9,7 @@
   roles:
     - role: common
       
-    - role: mongo
+    - role: database
       
     - role: backend
       

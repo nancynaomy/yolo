@@ -1,11 +1,31 @@
-- name: Build and run MongoDb database container
+---
+- name: Ensure Docker is installed
+  apt:
+    name: docker.io
+    state: present
+    update_cache: yes
+  become: true
+
+- name: Ensure Docker service is started
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  become: true
+
+- name: Create app Docker network
+  docker_network:
+    name: "{{ network_name }}"
+    state: present
+
+- name: Run MongoDB container
   docker_container:
     name: mongo-db
     image: mongo:3.0
     state: started
     restart_policy: always
     ports:
-      - "27017:27017"
+      - "{{ mongo_port }}:27017"
     volumes:
       - "{{ mongo_volume }}:/data/db"
     networks:

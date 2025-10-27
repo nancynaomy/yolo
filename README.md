@@ -89,3 +89,10 @@ Dockerhub images upload
 My final images
 
 ![alt text](image-12.png)
+
+
+# USING VAGRANT AND ANSIBLE AUTOMATION IN THE YOLO APPLICATION PROJECT
+
+## Overview
+
+This repo automates deploying a containerized YOLO e-commerce site using Infrastructure as Code. Vagrant creates the VM, Ansible installs and configures everything, and Docker runs the app services — so you can get the entire system up and running with a single vagrant up.

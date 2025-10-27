@@ -1,0 +1,11 @@
+---
+- name: Run Frontend container
+  docker_container:
+    name: yolo-frontend
+    image: "{{ frontend_image }}"
+    state: started
+    restart_policy: always
+    ports:
+      - "{{ frontend_port }}:80"
+    networks:
+      - name: "{{ network_name }}"

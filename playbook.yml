@@ -1,0 +1,18 @@
+- name: Automate deployment of the Yolo app using Ansible and vagrant
+  hosts: all
+  become: true
+
+  vars_files:
+    - vars/main.yml
+
+
+  roles:
+    - role: common
+      
+    - role: mongo
+      
+    - role: backend
+      
+    - role: frontend
+     
+

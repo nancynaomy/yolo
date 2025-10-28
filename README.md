@@ -139,8 +139,59 @@ vagrant up.
 
   - Creates a container named mongo-db.
 
-  - Exposes port 27017 internally for database communication.
+  - Exposes port **27017** internally for database communication.
 
   - Mounts a persistent volume mongo-data for data storage.
 
-  - Connects the MongoDB container to the shared Docker network
+  - Connects the MongoDB container to the shared Docker network.
+
+**3. Backend Role**
+
+  - Runs the backend image that communicates with Database.
+
+*Task*
+
+  - Pulls the backend image: `namanoo/naomi-yolo-backend:v1.0.0`
+
+  - Creates a container named `yolo_backend-container`.
+
+  - Exposes port **5000** for API access.
+
+  - Links to the database container through the network: `app-network`.
+
+**4. Fontend Role**
+
+- Deploys client react application
+
+*Tasks*
+
+  - Pulls Frontend  image from docker hub: `namanoo/naomi-yolo-client:v1.0.0`
+  - It creates a container called `yolo-frontend1.
+  - Then it maps guest port `80` to host port `3000`
+  - it conect to same network as backend container for communication
+
+  ## Project structure
+
+  This is part of the structure where I am using ansible
+
+  ```<pre>
+├──roles/
+    ├── backend
+    │   └── tasks
+    │       └── main.yml
+    ├── common
+    │   └── tasks
+    │       └── main.yml
+    ├── database
+    │   └── tasks
+    │       └── main.yml
+    └── frontend
+        └── tasks
+            └── main.yml
+├── Vagrantfile
+├── ansible.cfg
+├── playbook.yml
+├── README.md
+├──vars/
+   └── main.yml
+```

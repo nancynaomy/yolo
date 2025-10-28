@@ -1,4 +1,5 @@
 
+### Updated With Ansible automation
 # Overview
 This project demonstrates the containerization and deployment of a full-stack YOLO application using Docker.
 
@@ -174,7 +175,7 @@ vagrant up.
 
   This is part of the structure where I am using ansible
 
-  ```<pre>
+```bash
 ├──roles/
     ├── backend
     │   └── tasks
@@ -195,3 +196,8 @@ vagrant up.
 ├──vars/
    └── main.yml
 ```
+
+# Author
+**Naomy Nancy**
+
+([Github account ](https://github.com/nancynaomy))

@@ -96,3 +96,51 @@ My final images
 ## Overview
 
 This repo automates deploying a containerized YOLO e-commerce site using Infrastructure as Code. Vagrant creates the VM, Ansible installs and configures everything, and Docker runs the app services — so you can get the entire system up and running with a single vagrant up.
+
+
+*1. Vagrant* creates the VM.
+
+*2. Ansible* install dependencies and configure the application stack
+
+*3. Docker* runs the app services All these enables you to get the entire system up and running with a single command:
+
+```bash
+
+vagrant up.
+
+```
+## Roles
+
+**1. Common Role**
+
+- Sets up the essential system tools and base configuration for Docker deployment.
+
+*Tasks*
+
+  - Configure base dependencies and updates system packages.
+
+  - Setup Docker Compose tool and giving appropriate rights to owner andiInstalls git and docker.io.
+
+  - Downloads and installs the latest version of Docker Compose.
+
+  - Starts and enables the Docker service.
+
+  - Creates a Docker network (yolo-network) to link all containers.
+
+  - Clones the YOLO application repository from GitHub into /home/vagrant/yolo-app.
+
+**2. Database Role**
+
+- Deploys the MongoDB database container.
+
+*Tasks*
+
+  - Pulls the official MongoDB image (mongo:3.0).
+
+  - Creates a container named mongo-db.
+
+  - Exposes port 27017 internally for database communication.
+
+  - Mounts a persistent volume mongo-data for data storage.
+
+  - Connects the MongoDB container to the shared Docker network

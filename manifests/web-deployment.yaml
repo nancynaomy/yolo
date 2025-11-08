@@ -17,8 +17,8 @@ spec:
     spec:
       containers:
       - name: yolo-web
-        # Replace this image with your actual Docker Hub image (namanoo/...)
-        image: namanoo/yolo-web:v1
+        
+        image: namano/naomi-yolo-client:v1.0.1
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080

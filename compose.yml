@@ -3,7 +3,7 @@
 services:
 
   naomi-yolo-client:
-    image: namano/naomi-yolo-client:v1.0.1
+    image: namanoo/naomi-yolo-client:v1.0.1
     build: ./client
     container_name: naomi-yolo-client
     stdin_open: true
@@ -15,7 +15,7 @@ services:
       - "3000:80"
 
   naomi-yolo-backend:
-    image: namano/naomi-yolo-backend:v1.0.1
+    image: namanoo/naomi-yolo-backend:v1.0.1
     build: ./backend
     container_name: naomi-yolo-backend
     stdin_open: true
@@ -35,7 +35,7 @@ services:
     
   
   naomi-yolo-mongodb:
-    image: namano/naomi-yolo-mongodb:v1.0.1
+    image: namanoo/naomi-yolo-mongodb:v1.0.1
     build: ./database
     container_name: naomi-yolo-mongodb
     restart: always

@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yolo-web
+  namespace: yolo
+  labels:
+    app: yolo-web
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: yolo-web
+  template:
+    metadata:
+      labels:
+        app: yolo-web
+    spec:
+      containers:
+      - name: yolo-web
+        # Replace this image with your actual Docker Hub image (namanoo/...)
+        image: namanoo/yolo-web:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - configMapRef:
+            name: yolo-config
+        - secretRef:
+            name: yolo-secret
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: yolo-web-lb
+  namespace: yolo
+spec:
+  type: LoadBalancer
+  selector:
+    app: yolo-web
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP

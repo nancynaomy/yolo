@@ -18,7 +18,7 @@ spec:
       containers:
       - name: yolo-web
         
-        image: namano/naomi-yolo-client:v1.0.1
+        image: namanoo/naomi-yolo-client:v1.0.1
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080

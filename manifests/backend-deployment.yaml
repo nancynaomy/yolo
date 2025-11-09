@@ -4,7 +4,7 @@ metadata:
   name: yolo-backend
   namespace: yolo
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: yolo-backend
@@ -15,33 +15,18 @@ spec:
     spec:
       containers:
         - name: yolo-backend
-          image: docker.io/namanoo/naomi-yolo-backend:v1.0.1
+          image: docker.io/namanoo/naomi-yolo-backend:v1.0.2
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: yolo-backend-config
+            - secretRef:
+                name: yolo-secrets
           env:
-            - name: MONGO_ROOT_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: yolo-secrets
-                  key: MONGO_ROOT_USERNAME
-            - name: MONGO_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: yolo-secrets
-                  key: MONGO_ROOT_PASSWORD
-            - name: MONGO_URI
-              value: "mongodb://$(MONGO_ROOT_USERNAME):$(MONGO_ROOT_PASSWORD)@mongo-0.mongo.yolo.svc.cluster.local:27017/yolomy?authSource=admin"
-            - name: PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: yolo-backend-config
-                  key: PORT
-            - name: CLIENT_ORIGIN
-              valueFrom:
-                configMapKeyRef:
-                  name: yolo-backend-config
-                  key: CLIENT_ORIGIN
+            - name: MONGODB_URI
+              value: mongodb://mongo:27017/yolomy
           resources:
             requests:
               cpu: "250m"
@@ -49,6 +34,7 @@ spec:
             limits:
               cpu: "500m"
               memory: "512Mi"
+
 ---
 apiVersion: v1
 kind: Service

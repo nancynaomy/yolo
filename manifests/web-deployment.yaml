@@ -1,55 +1,60 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: yolo-web
+  name: yolo-frontend
   namespace: yolo
-  labels:
-    app: yolo-web
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
-      app: yolo-web
+      app: yolo-frontend
   template:
     metadata:
       labels:
-        app: yolo-web
+        app: yolo-frontend
     spec:
       containers:
-      - name: yolo-web
-        
-        image: namanoo/naomi-yolo-client:v1.0.1
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 8080
-        envFrom:
-        - configMapRef:
-            name: yolo-config
-        - secretRef:
-            name: yolo-secret
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-          initialDelaySeconds: 5
-          periodSeconds: 10
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-          initialDelaySeconds: 30
-          periodSeconds: 20
+        - name: yolo-frontend
+          image: docker.io/namanoo/naomi-yolo-client:v1.0.1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          env:
+            - name: WEB_URL
+              value: "http://yolo.example.com"
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 20
+            periodSeconds: 20
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: yolo-web-lb
+  name: yolo-frontend
   namespace: yolo
 spec:
-  type: LoadBalancer
   selector:
-    app: yolo-web
+    app: yolo-frontend
   ports:
-  - port: 80
-    targetPort: 8080
-    protocol: TCP
+    - name: http
+      port: 80
+      targetPort: 80
+  type: LoadBalancer

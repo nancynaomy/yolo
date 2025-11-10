@@ -1,8 +1,8 @@
 
 ### Updated With Ansible automation
-# Overview
-This project demonstrates the containerization and deployment of a full-stack YOLO application using Docker.
 
+# Project Evolution
+This project began as a containerized full-stack YOLO application built with Docker and Docker Compose, then automated using Vagrant and Ansible, and has now been extended to Kubernetes (GKE/Minikube) for full orchestration and scalability.
 
 
 # Requirements
@@ -196,6 +196,23 @@ vagrant up.
 ├──vars/
    └── main.yml
 ```
+
+# Kubernetes Deployment
+## Overview
+
+The Kubernetes stage deploys the YOLO app using a multi-pod architecture:
+
+MongoDB as a StatefulSet for persistent database storage
+
+Backend as a Deployment (2 replicas) connected to Mongo via internal DNS
+
+Frontend as a Deployment exposed via NodePort or Ingress
+
+ConfigMap and Secret used for environment configuration and credentials
+
+Namespace (yolo) used to isolate all project resources
+
+![alt text](image-13.png)
 
 # Author
 **Naomy Nancy**

@@ -214,6 +214,71 @@ Namespace (yolo) used to isolate all project resources
 
 ![alt text](image-13.png)
 
+## Kubernetes Objects Implemented
+
+| Object Type     | Name                  | Purpose                                                          |
+| --------------- | --------------------- | ---------------------------------------------------------------- |
+| **Namespace**   | `yolo`                | Logical separation of all YOLO components                        |
+| **ConfigMap**   | `yolo-backend-config` | Stores non-sensitive app settings (PORT, CLIENT_ORIGIN)          |
+| **Secret**      | `yolo-secrets`        | Stores DB credentials (MONGO_ROOT_USERNAME, MONGO_ROOT_PASSWORD) |
+| **StatefulSet** | `mongo`               | Persistent MongoDB pod with attached PVC (1Gi–5Gi)               |
+| **Deployment**  | `yolo-backend`        | Backend API deployment (2 replicas)                              |
+| **Deployment**  | `yolo-frontend`       | React frontend deployment                                        |
+| **Service**     | `mongo`               | ClusterIP service for DB access                                  |
+| **Service**     | `yolo-backend`        | ClusterIP service for internal API access                        |
+| **Service**     | `yolo-frontend`       | NodePort service for browser access                              |
+| **Ingress**     | `yolo-ingress`        | Optional HTTP routing for external access                        |
+
+
+## Folder Structure
+
+```markdown
+manifests
+├── 00-namespace.yaml
+├── backend-deployment.yaml
+├── configmap-secret.yaml
+├── ingress.yaml
+├── mongo-statefulset.yaml
+├── secrets.yaml
+└── web-deployment.yaml
+```
+
+## Deployment Steps
+
+1. Create the namespace and apply manifests
+
+```bash
+kubectl apply -f manifests/
+
+```
+2. Check resources
+```bash
+Check resources
+```
+3. Access frontend
+
+- If using NodePort:
+
+```bash 
+minikube service yolo-frontend -n yolo
+
+```
+
+![alt text](image-14.png)
+
+frontend will open from a browser
+
+![alt text](image-15.png)
+
+- If using Ingress:
+
+Add to /etc/hosts
+
+![alt text](image-16.png)
+
+
+
+
 # Author
 **Naomy Nancy**
 

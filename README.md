@@ -4,6 +4,7 @@
 # Project Evolution
 This project began as a containerized full-stack YOLO application built with Docker and Docker Compose, then automated using Vagrant and Ansible, and has now been extended to Kubernetes (GKE/Minikube) for full orchestration and scalability.
 
+Final  Project live server: [http://34.123.108.130/](http://34.123.108.130/)
 
 # Requirements
 Install Docker Engine by following the instructions here:
@@ -41,7 +42,7 @@ The image is created successfully:
 
 Create a `docker-compose.yaml` file in the root folder:
 
-```
+```bash
 yolo
    |__ compose.yaml
 ```
@@ -276,6 +277,49 @@ Add to /etc/hosts
 
 ![alt text](image-16.png)
 
+
+## Deploying to GKE
+Below is a summary of the containerized services deployed on Google Kubernetes Engine (GKE) as part of the YOLO application. Each service runs in its own pod and is managed via Kubernetes manifests, using images hosted on Docker Hub.
+
+| **Service** | **Image**                                    | 
+| ----------- | -------------------------------------------- | 
+| Frontend    | `docker.ionamanoo/naomi-yolo-client:v1.0.2`  |
+| Backend     | `docker.ionamanoo/naomi-yolo-backend:v1.0.2` | 
+| MongoDB     | `docker.ionamanoo/naomi-yolo-mongodb:v1.0.2` | 
+
+These containers are orchestrated via Kubernetes Deployments and a StatefulSet (for MongoDB), with services exposing them internally and externally through a GKE Ingress for public access.
+
+## Provision a cluster and authenticate kubectl
+```bash
+gcloud container clusters create yolo-cluster \
+  --zone us-central1-a \
+  --num-nodes 3 \
+  --machine-type e2-medium  \
+  --disk-type pd-standard \
+  --disk-size 30 \
+  --addons HttpLoadBalancing
+
+gcloud container clusters get-credentials yolo-cluster --zone us-central1-a --project my-yolo-project-ip4
+```
+![alt text](image-17.png)
+
+4. Apply the manifests
+
+Run:
+
+```bash
+kubectl apply -f manifests/
+```
+
+![alt text](image-18.png)
+
+## Check Services
+
+```bash
+kubectl get svc -n yolo
+```
+
+![alt text](image-19.png)
 
 
 
